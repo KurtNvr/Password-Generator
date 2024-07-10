@@ -5,8 +5,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -74,35 +72,22 @@ public class PasswordGenerator extends JFrame {
         panel.add(symbolsField);
 
         JButton generateButton = new JButton("Создать пароль");
-        generateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                generatePassword();
-            }
-        });
+        generateButton.addActionListener(e -> generatePassword());
 
         panel.add(generateButton);
 
         JButton copyButton = new JButton("Скопировать пароль");
-        copyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String password = passwordArea.getText();
-                StringSelection stringSelection = new StringSelection(password);
-                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                clipboard.setContents(stringSelection, null);
-            }
+        copyButton.addActionListener(e -> {
+            String password = passwordArea.getText();
+            StringSelection stringSelection = new StringSelection(password);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
         });
 
         panel.add(copyButton);
 
         JButton saveButton = new JButton("Сохранить пароль");
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                savePasswordToFile();
-            }
-        });
+        saveButton.addActionListener(e -> savePasswordToFile());
         panel.add(saveButton);
 
         passwordArea = new JTextArea() {
